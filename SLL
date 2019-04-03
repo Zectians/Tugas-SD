@@ -1,0 +1,55 @@
+class Node(object):
+ 
+    def __init__(self, data, next):
+        self.data = data
+        self.next = next
+ 
+ 
+class SingleList(object):
+ 
+    head = None
+    tail = None
+ 
+    def show(self):
+        print "List Data:"
+        node_ini = self.head
+        while node_ini is not None:
+            print node_ini.data, " -> ",
+            node_ini = node_ini.next
+        print None
+ 
+    def append(self, data):
+        node = Node(data, None)
+        if self.head is None:
+            self.head = self.tail = node
+        else:
+            self.tail.next = node
+        self.tail = node
+ 
+    def remove(self, node_value):
+        node_ini = self.head
+        node_sebelum = None
+        while node_ini is not None:
+            if node_ini.data == node_value:
+                
+                if node_sebelum is not None:
+                    node_sebelum.next = node_ini.next
+                else:
+                    self.head = node_ini.next
+ 
+            
+            node_sebelum = node_ini
+            node_ini = node_ini.next
+ 
+ 
+s = SingleList()
+s.append(31)
+s.append(2)
+s.append(3)
+s.append(4)
+ 
+s.show()
+s.remove(31)
+s.remove(3)
+s.remove(2)
+s.show()
