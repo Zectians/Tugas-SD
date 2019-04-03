@@ -1,0 +1,64 @@
+class Node(object):
+ 
+    def __init__(self, data, sebelum, selanjutnya):
+        self.data = data
+        self.sebelum = sebelum
+        self.selanjutnya = selanjutnya
+ 
+ 
+class DoubleList(object):
+ 
+    head = None
+    tail = None
+ 
+    def append(self, data):
+        new_node = Node(data, None, None)
+        if self.head is None:
+            self.head = self.tail = new_node
+        else:
+            new_node.sebelum = self.tail
+            new_node.selanjutnya = None
+            self.tail.selanjutnya = new_node
+            self.tail = new_node
+ 
+    def remove(self, node_value):
+        current_node = self.head
+ 
+        while current_node is not None:
+            if current_node.data == node_value:
+                
+                if current_node.sebelum is not None:
+                    current_node.sebelum.selanjutnya = current_node.selanjutnya
+                    current_node.selanjutnya.sebelum = current_node.sebelum
+                else:
+                    
+                    self.head = current_node.selanjutnya
+                    current_node.selanjutnya.sebelum = None
+ 
+            current_node = current_node.selanjutnya
+ 
+    def show(self):
+        print "tunjukkan Data:"
+        current_node = self.head
+        while current_node is not None:
+            print current_node.sebelum.data if hasattr(current_node.sebelum, "data") else None,
+            print current_node.data,
+            print current_node.selanjutnya.data if hasattr(current_node.selanjutnya, "data") else None
+ 
+            current_node = current_node.selanjutnya
+        print "*"*50
+ 
+ 
+d = DoubleList()
+ 
+d.append(5)
+d.append(6)
+d.append(50)
+d.append(30)
+ 
+d.show()
+ 
+d.remove(50)
+d.remove(5)
+ 
+d.show()
